@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from sklearn.ensemble import (
     RandomForestClassifier, RandomForestRegressor,
     GradientBoostingClassifier, GradientBoostingRegressor
@@ -23,7 +23,6 @@ from sklearn.metrics import (
 
 sns.set(style="whitegrid")
 
-
 def run_ml_module(df: pd.DataFrame):
     st.subheader("🧠 Machine Learning Module")
 
@@ -33,23 +32,33 @@ def run_ml_module(df: pd.DataFrame):
         X = df.drop(columns=[target])
         y = df[target]
 
-        # Handle datetime
+        # Datetime features
         X = handle_datetime_features(X)
 
-        # Detect problem type
-        problem_type = detect_problem_type(y)
+        # Clean missing values
+        X = X.fillna(method="ffill").fillna(method="bfill")
+        y = y.fillna(method="ffill").fillna(method="bfill")
 
-        # Encode features
+        # Manual problem type override
+        user_choice = st.selectbox("🔍 Problem Type", ["Auto", "Classification", "Regression"])
+
+        # Auto-detect if Auto selected
+        if user_choice == "Auto":
+            problem_type = detect_problem_type(y)
+            st.info(f"🧠 Auto-detected Problem Type: **{problem_type.capitalize()}**")
+        else:
+            problem_type = user_choice.lower()
+
+        # Encode & scale
         X = encode_df(X)
-
-        # Encode target if classification
+        X = scale_numeric(X)
         y_encoded = encode_target(y) if problem_type == "classification" else y
 
-        # Train-test split
+        # Split
         test_size = st.slider("🔀 Test Size (%)", 10, 50, 20) / 100
         X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=test_size, random_state=42)
 
-        # Model Selection
+        # Model choice
         st.markdown("🧠 **Choose Your Model**")
         model_name, model = select_model(problem_type)
 
@@ -60,11 +69,9 @@ def run_ml_module(df: pd.DataFrame):
             st.success(f"✅ Model trained as **{problem_type}** using **{model_name}**")
             show_metrics(problem_type, y_test, y_pred)
 
-            # Feature Importance
             if problem_type == "regression" and hasattr(model, 'feature_importances_'):
                 plot_feature_importance(model, X)
 
-            # Show predictions
             st.subheader("🔎 Predictions Preview")
             preview = pd.DataFrame({
                 "Actual": y_test,
@@ -72,7 +79,7 @@ def run_ml_module(df: pd.DataFrame):
             }).reset_index(drop=True)
             st.dataframe(preview.head())
 
-            # Allow user to download trained model
+            # Download model
             st.subheader("💾 Download Trained Model")
             with tempfile.NamedTemporaryFile(delete=False, suffix='.pkl') as tmp:
                 joblib.dump(model, tmp.name)
@@ -91,18 +98,24 @@ def detect_problem_type(y: pd.Series) -> str:
     else:
         return "regression"
 
-
 def encode_df(X: pd.DataFrame) -> pd.DataFrame:
     for col in X.select_dtypes(include=["object", "category", "bool"]).columns:
-        X[col] = LabelEncoder().fit_transform(X[col].astype(str))
+        try:
+            X[col] = LabelEncoder().fit_transform(X[col].astype(str))
+        except:
+            X[col] = X[col].astype(str)
     return X
-
 
 def encode_target(y: pd.Series) -> pd.Series:
     if y.dtype == 'object' or y.dtype.name == 'category':
         return LabelEncoder().fit_transform(y.astype(str))
     return y
 
+def scale_numeric(X: pd.DataFrame) -> pd.DataFrame:
+    num_cols = X.select_dtypes(include=["int64", "float64"]).columns
+    scaler = MinMaxScaler()
+    X[num_cols] = scaler.fit_transform(X[num_cols])
+    return X
 
 def handle_datetime_features(df: pd.DataFrame) -> pd.DataFrame:
     for col in df.columns:
@@ -121,43 +134,33 @@ def handle_datetime_features(df: pd.DataFrame) -> pd.DataFrame:
                 pass
     return df
 
-
 def select_model(problem_type: str):
     if problem_type == "classification":
         model_name = st.selectbox("📘 Select Classification Model", [
             "Random Forest", "Logistic Regression", "Decision Tree",
             "Support Vector Classifier", "K-Nearest Neighbors", "Gradient Boosting"
         ])
-        if model_name == "Random Forest":
-            return model_name, RandomForestClassifier()
-        elif model_name == "Logistic Regression":
-            return model_name, LogisticRegression()
-        elif model_name == "Decision Tree":
-            return model_name, DecisionTreeClassifier()
-        elif model_name == "Support Vector Classifier":
-            return model_name, SVC()
-        elif model_name == "K-Nearest Neighbors":
-            return model_name, KNeighborsClassifier()
-        else:
-            return model_name, GradientBoostingClassifier()
+        return model_name, {
+            "Random Forest": RandomForestClassifier(),
+            "Logistic Regression": LogisticRegression(),
+            "Decision Tree": DecisionTreeClassifier(),
+            "Support Vector Classifier": SVC(),
+            "K-Nearest Neighbors": KNeighborsClassifier(),
+            "Gradient Boosting": GradientBoostingClassifier()
+        }[model_name]
     else:
         model_name = st.selectbox("📗 Select Regression Model", [
             "Random Forest", "Linear Regression", "Decision Tree",
             "Support Vector Regressor", "K-Nearest Neighbors", "Gradient Boosting"
         ])
-        if model_name == "Random Forest":
-            return model_name, RandomForestRegressor()
-        elif model_name == "Linear Regression":
-            return model_name, LinearRegression()
-        elif model_name == "Decision Tree":
-            return model_name, DecisionTreeRegressor()
-        elif model_name == "Support Vector Regressor":
-            return model_name, SVR()
-        elif model_name == "K-Nearest Neighbors":
-            return model_name, KNeighborsRegressor()
-        else:
-            return model_name, GradientBoostingRegressor()
-
+        return model_name, {
+            "Random Forest": RandomForestRegressor(),
+            "Linear Regression": LinearRegression(),
+            "Decision Tree": DecisionTreeRegressor(),
+            "Support Vector Regressor": SVR(),
+            "K-Nearest Neighbors": KNeighborsRegressor(),
+            "Gradient Boosting": GradientBoostingRegressor()
+        }[model_name]
 
 def show_metrics(problem_type: str, y_true, y_pred):
     st.subheader("📊 Evaluation Metrics")
@@ -173,7 +176,6 @@ def show_metrics(problem_type: str, y_true, y_pred):
         st.write(f"📉 MAE: `{round(mae, 4)}`")
         st.write(f"📉 RMSE: `{round(rmse, 4)}`")
         st.write(f"📈 R² Score: `{round(r2, 4)}`")
-
 
 def plot_feature_importance(model, X):
     st.subheader("🔍 Feature Importance")

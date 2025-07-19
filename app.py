@@ -9,13 +9,13 @@ from modules.utils import generate_download_link, generate_excel_download_link
 
 # ----------------- Streamlit Page Config ----------------- #
 st.set_page_config(
-    page_title="DataWiz Pro - Data Analysis App",
+    page_title="AnalyticaX: Unleash the Power of Your Data",
     layout="wide",
     page_icon="📊"
 )
 
 # ----------------- App Header ----------------- #
-st.markdown("<h1 style='text-align: center; color: #FF4B4B;'>📊 DataWiz Pro - Advanced Data Analysis App</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #FF4B4B;'>📊 AnalyticaX: Unleash the Power of Your Data</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
 # ----------------- Sidebar Navigation ----------------- #

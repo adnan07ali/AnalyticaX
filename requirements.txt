@@ -11,3 +11,4 @@ openpyxl
 xlrd
 joblib
 tensorflow
+pmdarima
