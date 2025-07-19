@@ -154,7 +154,8 @@ def run_time_series_analysis(df):
         plot_acf_pacf(stationary_series)
         st.write("### Forecasting with ARIMA")
         forecast, conf_int, model = forecast_arima(ts, n_periods)
-        forecast_index = pd.date_range(start=ts.index[-1] + pd.Timedelta(1, unit=freq[0]), periods=n_periods, freq=freq)
+        forecast_index = pd.date_range(start=ts.index[-1], periods=n_periods + 1, freq=freq)[1:]
+
         forecast_df = pd.DataFrame({
             'Forecast': forecast,
             'Lower CI': conf_int[:, 0],
@@ -163,7 +164,8 @@ def run_time_series_analysis(df):
     else:
         st.write("### Forecasting with Multivariate LSTM")
         forecast = forecast_multivariate_lstm(df, target_column, selected_features, n_periods=n_periods)
-        forecast_index = pd.date_range(start=ts.index[-1] + pd.Timedelta(1, unit=freq[0]), periods=n_periods, freq=freq)
+        forecast_index = pd.date_range(start=ts.index[-1], periods=n_periods + 1, freq=freq)[1:]
+
         forecast_df = pd.DataFrame({'Forecast': forecast}, index=forecast_index)
 
     st.write("### 📊 Forecast Plot")
