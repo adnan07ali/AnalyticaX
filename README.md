@@ -1,6 +1,6 @@
 # 📊 AnalyticaX – Streamlit Data Analysis & Forecasting Web App
 
-## 🧾 Project Overview
+## 🧾 Project Overview – [🌐 Launch Web App](http://35.232.46.42:8501/)
 
 **AnalyticaX** is a powerful and interactive web-based **data analysis platform** built using **Python** and **Streamlit**, crafted for **data enthusiasts**, **analysts**, and **teams** looking to transform raw data into actionable insights — all without writing code.
 
