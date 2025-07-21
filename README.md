@@ -37,7 +37,7 @@
 
 ---
 
-## 📂 Folder Structure
+## 📂 """Folder Structure
 Web-Project/
 │
 ├── app.py # Main Streamlit launcher
