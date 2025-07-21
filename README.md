@@ -55,3 +55,13 @@ Web-Project/
     ├── time_series_analysis.py # ARIMA and LSTM forecasting
     └── utils.py                # Download helpers (CSV/Excel)
 ```
+
+ Demo Workflow
+## 🖥️ Demo Workflow
+
+1. Upload any `.csv` or `.xlsx` dataset  
+2. Explore descriptive statistics  
+3. Visualize data with dynamic charts  
+4. Run regression models and evaluate  
+5. Forecast time series with ARIMA/LSTM  
+6. Download cleaned data  
