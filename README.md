@@ -38,16 +38,20 @@
 ---
 
 ## 📂 Folder Structure
+## 📂 Folder Structure
+
+```
 Web-Project/
 │
-├── app.py # Main Streamlit launcher
-├── Dockerfile # Docker container setup
-├── requirements.txt # Python dependencies
-├── README.md # Project overview
+├── app.py                      # Main Streamlit launcher
+├── Dockerfile                  # Docker container setup
+├── requirements.txt            # Python dependencies
+├── README.md                   # Project overview
 │
-└── modules/ # Modular Streamlit sections
-├── eda.py # Exploratory Data Analysis
-├── modeling.py # Regression modeling
-├── visualization.py # Interactive charts
-├── time_series_analysis.py# ARIMA and LSTM forecasting
-└── utils.py # Download helpers (CSV/Excel)
+└── modules/                    # Modular Streamlit sections
+    ├── eda.py                  # Exploratory Data Analysis
+    ├── modeling.py             # Regression modeling
+    ├── visualization.py        # Interactive charts
+    ├── time_series_analysis.py # ARIMA and LSTM forecasting
+    └── utils.py                # Download helpers (CSV/Excel)
+```
