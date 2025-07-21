@@ -77,10 +77,10 @@ pip install -r requirements.txt
 streamlit run app.py
 
 
-Docker Setup
+# Docker Setup
 
-# Build the container
+### Build the container
 docker build -t analytica-x .
 
-# Run the app
+### Run the app
 docker run -p 8501:8501 analytica-x
