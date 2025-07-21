@@ -84,3 +84,54 @@ docker build -t analytica-x .
 
 ### Run the app
 docker run -p 8501:8501 analytica-x
+
+
+
+🔍 Modules Overview
+eda.py
+Descriptive statistics (mean, median, mode, std, etc.)
+
+Null value summary and visualizations
+
+Histograms, boxplots, and distribution plots
+
+Correlation heatmap and pairplot
+
+Summary KPIs using Streamlit metrics
+
+modeling.py
+Train/Test split and feature-target selection
+
+Linear Regression, Decision Tree, and Random Forest
+
+RMSE, MAE, and R² evaluation metrics
+
+Tabular and graphical results
+
+visualization.py
+Bar, Pie, Line, Box, Histogram, and Scatter plots
+
+Auto-detection of categorical vs numerical columns
+
+Dynamic color picker for customization
+
+time_series_analysis.py
+Stationarity test with ADF and rolling stats
+
+ACF & PACF plotting for ARIMA model selection
+
+Forecasting with:
+
+Auto ARIMA (via pmdarima)
+
+Multivariate LSTM (via Keras + TensorFlow)
+
+Forecast visualization and confidence intervals
+
+Evaluation: RMSE and MAE
+
+utils.py
+Export cleaned datasets to CSV and Excel
+
+Exception handling for download errors
+
