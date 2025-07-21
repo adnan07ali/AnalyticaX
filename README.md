@@ -87,7 +87,7 @@ docker run -p 8501:8501 analytica-x
 
 
 
-🔍 Modules Overview
+ Modules Overview
 eda.py
 Descriptive statistics (mean, median, mode, std, etc.)
 
@@ -134,4 +134,6 @@ utils.py
 Export cleaned datasets to CSV and Excel
 
 Exception handling for download errors
+
+
 
