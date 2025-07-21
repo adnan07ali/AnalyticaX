@@ -1,6 +1,15 @@
 # 📊 AnalyticaX – Streamlit Data Analysis & Forecasting Web App
 
-**AnalyticaX** is a powerful and interactive web-based data analysis platform built using **Python** and **Streamlit**, designed for data enthusiasts, analysts, and teams. Users can upload datasets, explore and visualize data, clean it, apply machine learning models, and forecast future trends using **ARIMA** and **LSTM** models.
+## 🧾 Project Overview
+
+**AnalyticaX** is a powerful and interactive web-based **data analysis platform** built using **Python** and **Streamlit**, crafted for **data enthusiasts**, **analysts**, and **teams** looking to transform raw data into actionable insights — all without writing code.
+
+Users can easily **upload CSV or Excel files**, perform **automated data cleaning**, generate **descriptive statistics**, and create a wide range of **interactive visualizations** including bar charts, heatmaps, pairplots, and more. For predictive analysis, AnalyticaX provides modules for **machine learning regression models** (Linear, Decision Tree, Random Forest) and **time series forecasting** using both **Auto ARIMA** and **Multivariate LSTM** models.
+
+The platform supports **data export**, interactive UI customization, and is built with a **modular codebase** that encourages scalability. Fully **Dockerized** and **deployed on Google Cloud Compute Engine**, this app is designed for **production-grade** performance and accessibility.
+
+> 🚀 AnalyticaX streamlines the data workflow — from data ingestion to visualization to modeling — saving hours of manual effort and empowering smarter, faster decisions.
+
 
 > 🌐 Fully Dockerized & deployed on Google Cloud Platform (GCP) Compute Engine VM.
 
