@@ -65,3 +65,14 @@ Web-Project/
 4. Run regression models and evaluate  
 5. Forecast time series with ARIMA/LSTM  
 6. Download cleaned data  
+
+
+## 📦 Installation & Usage
+
+### 🔧 Local Setup
+
+```bash
+git clone https://github.com/adnan07ali/AnalyticaX.git
+cd AnalyticaX
+pip install -r requirements.txt
+streamlit run app.py
