@@ -71,8 +71,16 @@ Web-Project/
 
 ### 🔧 Local Setup
 
-```bash
 git clone https://github.com/adnan07ali/AnalyticaX.git
 cd AnalyticaX
 pip install -r requirements.txt
 streamlit run app.py
+
+
+Docker Setup
+
+# Build the container
+docker build -t analytica-x .
+
+# Run the app
+docker run -p 8501:8501 analytica-x
